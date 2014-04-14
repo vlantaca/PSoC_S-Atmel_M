@@ -1,0 +1,65 @@
+--------------- Build Started: 04/13/2014 14:07:22 Project: PSoC Slave, Configuration: ARM GCC 4.4.1 Debug ---------------
+cydsfit.exe "-.appdatapath" "C:\Users\Heiwa\AppData\Local\Cypress Semiconductor\PSoC Creator\2.1" "-.fdsnotice" "-.fdswarpdepfile=warp_dependencies.txt" "-.fdselabdepfile=elab_dependencies.txt" "-.fdsbldfile=generated_files.txt" "-p" "C:\Users\Heiwa\Desktop\PSOC_S Atmel_M\PSoC Slave\PSoC Slave.cydsn\PSoC Slave.cyprj" "-d" "CY8C5568AXI-060" "-s" "C:\Users\Heiwa\Desktop\PSOC_S Atmel_M\PSoC Slave\PSoC Slave.cydsn\Generated_Source\PSoC5" "--" "-yv2" "-v3" "-ygs" "-q10" "-o2" "-.fftcfgtype=LE"
+Elaborating Design...
+ADD: pft.M0028: warning: Clock Warning: (Debounce_Clock's accuracy range '20.000  Hz -50.000% +100.000%, (10.000  Hz - 40.000  Hz)' is not within the specified tolerance range '20.000  Hz ñ 5.000%, (19.000  Hz - 21.000  Hz)'.).
+ * C:\Users\Heiwa\Desktop\PSOC_S Atmel_M\PSoC Slave\PSoC Slave.cydsn\TopDesign\TopDesign.cysch (Instance 'Debounce_Clock')
+ * C:\Users\Heiwa\Desktop\PSOC_S Atmel_M\PSoC Slave\PSoC Slave.cydsn\PSoC Slave.cydwr (Debounce_Clock)
+HDL Generation ...
+Synthesis ...
+Place and Route ...
+Tech mapping ...
+Info: mpr.M0037: Unused pieces of the design have been optimized out. See the Tech mapping section of the report file for details. (App=cydsfit)
+Analog Placement ...
+Analog Routing ...
+Analog Code Generation ...
+Digital Placement ...
+Log: plm.M0038: The pin named Pin_12_4(0) at location P12[4] prevents usage of special purposes: SIO or I2C:SCL. (App=cydsfit)
+Log: plm.M0038: The pin named Pin_12_7(0) at location P12[7] prevents usage of special purposes: SIO. (App=cydsfit)
+Info: plm.M0037: PSoC Slave.rpt: 
+      Certain internal analog resources use the following pins for preferred routing: P12[4], P12[7].
+      Please check the "Final Placement Details" section of the report file (PSoC Slave.rpt) to see what resources are impacted by your pin selections.
+     (File=C:\Users\Heiwa\Desktop\PSOC_S Atmel_M\PSoC Slave\PSoC Slave.cydsn\PSoC Slave.rpt(1))
+Digital Routing ...
+Bitstream Generation ...
+Static timing analysis ...
+API Generation ...
+Dependency Generation ...
+Clean Temporary Files ...
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\main.lst -ffunction-sections -c .\main.c -o .\CortexM3\ARM_GCC_441\Debug\main.o
+.\main.c: In function 'ISR_WriteSW1_Interrupt':
+.\main.c:93: warning: implicit declaration of function 'SW1_Write_ClearInterrupt'
+.\main.c: In function 'ISR_ReadSW2_Interrupt':
+.\main.c:116: warning: implicit declaration of function 'SW2_Read_ClearInterrupt'
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\SW2.lst -ffunction-sections -c .\Generated_Source\PSoC5\SW2.c -o .\CortexM3\ARM_GCC_441\Debug\SW2.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\Debounce_Clock.lst -ffunction-sections -c .\Generated_Source\PSoC5\Debounce_Clock.c -o .\CortexM3\ARM_GCC_441\Debug\Debounce_Clock.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\Pin_12_4.lst -ffunction-sections -c .\Generated_Source\PSoC5\Pin_12_4.c -o .\CortexM3\ARM_GCC_441\Debug\Pin_12_4.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\SW3.lst -ffunction-sections -c .\Generated_Source\PSoC5\SW3.c -o .\CortexM3\ARM_GCC_441\Debug\SW3.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\SCL_EZI2C.lst -ffunction-sections -c .\Generated_Source\PSoC5\SCL_EZI2C.c -o .\CortexM3\ARM_GCC_441\Debug\SCL_EZI2C.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\Pin_12_7.lst -ffunction-sections -c .\Generated_Source\PSoC5\Pin_12_7.c -o .\CortexM3\ARM_GCC_441\Debug\Pin_12_7.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\SDA_EZI2C.lst -ffunction-sections -c .\Generated_Source\PSoC5\SDA_EZI2C.c -o .\CortexM3\ARM_GCC_441\Debug\SDA_EZI2C.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\EZI2C.lst -ffunction-sections -c .\Generated_Source\PSoC5\EZI2C.c -o .\CortexM3\ARM_GCC_441\Debug\EZI2C.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\EZI2C_PM.lst -ffunction-sections -c .\Generated_Source\PSoC5\EZI2C_PM.c -o .\CortexM3\ARM_GCC_441\Debug\EZI2C_PM.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\EZI2C_INT.lst -ffunction-sections -c .\Generated_Source\PSoC5\EZI2C_INT.c -o .\CortexM3\ARM_GCC_441\Debug\EZI2C_INT.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\LCD.lst -ffunction-sections -c .\Generated_Source\PSoC5\LCD.c -o .\CortexM3\ARM_GCC_441\Debug\LCD.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\LCD_PM.lst -ffunction-sections -c .\Generated_Source\PSoC5\LCD_PM.c -o .\CortexM3\ARM_GCC_441\Debug\LCD_PM.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\LCD_LCDPort.lst -ffunction-sections -c .\Generated_Source\PSoC5\LCD_LCDPort.c -o .\CortexM3\ARM_GCC_441\Debug\LCD_LCDPort.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\Cm3Start.lst -ffunction-sections -c .\Generated_Source\PSoC5\Cm3Start.c -o .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\core_cm3.lst -ffunction-sections -c .\Generated_Source\PSoC5\core_cm3.c -o .\CortexM3\ARM_GCC_441\Debug\core_cm3.o
+arm-none-eabi-as.exe -I. -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -g -alh=.\CortexM3\ARM_GCC_441\Debug/CyBootAsmGnu.lst -o .\CortexM3\ARM_GCC_441\Debug\CyBootAsmGnu.o .\Generated_Source\PSoC5\CyBootAsmGnu.s
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CyDmac.lst -ffunction-sections -c .\Generated_Source\PSoC5\CyDmac.c -o .\CortexM3\ARM_GCC_441\Debug\CyDmac.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CyFlash.lst -ffunction-sections -c .\Generated_Source\PSoC5\CyFlash.c -o .\CortexM3\ARM_GCC_441\Debug\CyFlash.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CyLib.lst -ffunction-sections -c .\Generated_Source\PSoC5\CyLib.c -o .\CortexM3\ARM_GCC_441\Debug\CyLib.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\cyPm.lst -ffunction-sections -c .\Generated_Source\PSoC5\cyPm.c -o .\CortexM3\ARM_GCC_441\Debug\cyPm.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\CySpc.lst -ffunction-sections -c .\Generated_Source\PSoC5\CySpc.c -o .\CortexM3\ARM_GCC_441\Debug\CySpc.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\cyutils.lst -ffunction-sections -c .\Generated_Source\PSoC5\cyutils.c -o .\CortexM3\ARM_GCC_441\Debug\cyutils.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\LED3.lst -ffunction-sections -c .\Generated_Source\PSoC5\LED3.c -o .\CortexM3\ARM_GCC_441\Debug\LED3.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\LED4.lst -ffunction-sections -c .\Generated_Source\PSoC5\LED4.c -o .\CortexM3\ARM_GCC_441\Debug\LED4.o
+arm-none-eabi-gcc.exe -I. -Wno-main -I./Generated_Source/PSoC5 -mcpu=cortex-m3 -mthumb -Wall -g -Wa,-alh=.\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.lst -ffunction-sections -c .\Generated_Source\PSoC5\cyfitter_cfg.c -o .\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.o
+arm-none-eabi-ar.exe -rs ".\CortexM3\ARM_GCC_441\Debug\PSoC Slave.a" .\CortexM3\ARM_GCC_441\Debug\SW2.o .\CortexM3\ARM_GCC_441\Debug\Debounce_Clock.o .\CortexM3\ARM_GCC_441\Debug\Pin_12_4.o .\CortexM3\ARM_GCC_441\Debug\SW3.o .\CortexM3\ARM_GCC_441\Debug\SCL_EZI2C.o .\CortexM3\ARM_GCC_441\Debug\Pin_12_7.o .\CortexM3\ARM_GCC_441\Debug\SDA_EZI2C.o .\CortexM3\ARM_GCC_441\Debug\EZI2C.o .\CortexM3\ARM_GCC_441\Debug\EZI2C_PM.o .\CortexM3\ARM_GCC_441\Debug\EZI2C_INT.o .\CortexM3\ARM_GCC_441\Debug\LCD.o .\CortexM3\ARM_GCC_441\Debug\LCD_PM.o .\CortexM3\ARM_GCC_441\Debug\LCD_LCDPort.o .\CortexM3\ARM_GCC_441\Debug\core_cm3.o .\CortexM3\ARM_GCC_441\Debug\CyBootAsmGnu.o .\CortexM3\ARM_GCC_441\Debug\CyDmac.o .\CortexM3\ARM_GCC_441\Debug\CyFlash.o .\CortexM3\ARM_GCC_441\Debug\CyLib.o .\CortexM3\ARM_GCC_441\Debug\cyPm.o .\CortexM3\ARM_GCC_441\Debug\CySpc.o .\CortexM3\ARM_GCC_441\Debug\cyutils.o .\CortexM3\ARM_GCC_441\Debug\LED3.o .\CortexM3\ARM_GCC_441\Debug\LED4.o .\CortexM3\ARM_GCC_441\Debug\cyfitter_cfg.o
+arm-none-eabi-ar.exe: creating .\CortexM3\ARM_GCC_441\Debug\PSoC Slave.a
+arm-none-eabi-gcc.exe -mthumb -march=armv7-m -mfix-cortex-m3-ldrd -T .\Generated_Source\PSoC5\cm3gcc.ld -g "-Wl,-Map,.\CortexM3\ARM_GCC_441\Debug\PSoC Slave.map" -Wl,--gc-sections -Wl,--start-group -o ".\CortexM3\ARM_GCC_441\Debug\PSoC Slave.elf" .\CortexM3\ARM_GCC_441\Debug\main.o .\CortexM3\ARM_GCC_441\Debug\Cm3Start.o ".\CortexM3\ARM_GCC_441\Debug\PSoC Slave.a" "C:\Program Files (x86)\Cypress\PSoC Creator\2.1\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CortexM3\ARM_GCC_441\Debug\CyComponentLibrary.a" -Wl,--end-group
+arm-none-eabi-objcopy.exe -O ihex ".\CortexM3\ARM_GCC_441\Debug\PSoC Slave.elf" ".\CortexM3\ARM_GCC_441\Debug\PSoC Slave.ihx"
+cyhextool -o ".\CortexM3\ARM_GCC_441\Debug\PSoC Slave.hex" -f ".\CortexM3\ARM_GCC_441\Debug\PSoC Slave.ihx" -prot .\Generated_Source\PSoC5\protect.hex -id E13C069 -a EEPROM=90200000:800,PROGRAM=00000000:40000,CONFIG=80000000:8000,PROTECT=90400000:100 -meta 0101 -cunv 00000006 -wonv AFAC90BC -ecc .\Generated_Source\PSoC5\config.hex
+Flash used: 6368 of 262144 bytes (2.4 %).
+SRAM used: 320 of 65536 bytes (0.5 %).
+--------------- Build Succeeded: 04/13/2014 14:07:57 ---------------

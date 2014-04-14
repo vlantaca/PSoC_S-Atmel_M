@@ -1,0 +1,112 @@
+
+----------------------------------------------------------------------
+
+Verifying bitstream.
+
+-----------------------------------------------------------------------
+
+
+---------Mapping jacks.---------
+
+
+---------Processing bitstream.---------
+
+Utilized "udb_hv_a@[UDB Pair=(0,0)]"
+Utilized "udb_hv_b@[UDB Pair=(0,1)]"
+Utilized "udb_hc@[UDB Pair=(0,1)]"
+Utilized "dsi_hv_b@[DSI=(0,0)][side=top]"
+Utilized "dsi_hv_a@[DSI=(1,0)][side=bottom]"
+Utilized "dsi_hc@[DSI=(0,1)][side=top]"
+Utilized "dsi_hv_a@[DSI=(0,1)][side=top]"
+Utilized "dsi_hv_b@[DSI=(1,1)][side=bottom]"
+Utilized "dsi_hc@[DSI=(0,2)][side=top]"
+Utilized "dsi_hv_b@[DSI=(0,2)][side=top]"
+Utilized "dsi_hv_a@[DSI=(1,2)][side=bottom]"
+Utilized "dsi_hv_a@[DSI=(0,3)][side=top]"
+Utilized "dsi_hc@[DSI=(1,3)][side=bottom]"
+Utilized "dsi_hv_b@[DSI=(1,3)][side=bottom]"
+Utilized "dsi_hc@[DSI=(1,5)][side=bottom]"
+
+---------Propagating signals.---------
+
+Found signal "Net_78" on jack "pld0:out1[UDB=(0,1)]".
+Number of connected bvjacks: 2.
+
+    1. Connected jack name: "io_ijack_2[IOP=(6)]"
+    
+    2. Connected jack name: "io_ijack_7[IOP=(12)]"
+    
+    
+
+Found signal "Net_77" on jack "pld0:out3[UDB=(0,1)]".
+Number of connected bvjacks: 2.
+
+    1. Connected jack name: "io_ijack_3[IOP=(6)]"
+    
+    2. Connected jack name: "io_ijack_4[IOP=(12)]"
+    
+    
+
+Found signal "Net_4" on jack "io_ojack_1[IOP=(6)]".
+Number of connected bvjacks: 1.
+
+    1. Connected jack name: "pld0:in0[UDB=(0,1)]"
+    
+    
+
+Found signal "\EZI2C:Net_175\" on jack "io_ojack_0[IOP=(12)]".
+Number of connected bvjacks: 1.
+
+    1. Connected jack name: "scl_in[FFB(I2C,0)]"
+    
+    
+
+Found signal "\EZI2C:Net_181\" on jack "io_ojack_1[IOP=(12)]".
+Number of connected bvjacks: 1.
+
+    1. Connected jack name: "sda_in[FFB(I2C,0)]"
+    
+    
+
+Found signal "Net_17" on jack "io_ojack_5[IOP=(15)]".
+Number of connected bvjacks: 1.
+
+    1. Connected jack name: "pld0:in11[UDB=(0,1)]"
+    
+    
+
+Found signal "\EZI2C:Net_172\" on jack "interrupt[FFB(I2C,0)]".
+Number of connected bvjacks: 1.
+
+    1. Connected jack name: "interrupt_jack[IntrHod=(0)][IntrId=(0)]"
+    
+    
+
+Found signal "\EZI2C:Net_174\" on jack "scl_out[FFB(I2C,0)]".
+Number of connected bvjacks: 1.
+
+    1. Connected jack name: "io_ijack_0[IOP=(12)]"
+    
+    
+
+Found signal "\EZI2C:Net_173\" on jack "sda_out[FFB(I2C,0)]".
+Number of connected bvjacks: 1.
+
+    1. Connected jack name: "io_ijack_1[IOP=(12)]"
+    
+    
+
+
+---------Verifying signals (routing).---------
+
+
+---------Verifying configuration.---------
+
+
+
+----------------------------------------------------------------------
+
+Bitstream verification passed.
+
+-----------------------------------------------------------------------
+

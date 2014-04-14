@@ -1,0 +1,876 @@
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 1
+
+
+   1              		.syntax unified
+   2              		.cpu cortex-m3
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 18, 4
+  12              		.thumb
+  13              		.file	"main.c"
+  14              		.section	.debug_abbrev,"",%progbits
+  15              	.Ldebug_abbrev0:
+  16              		.section	.debug_info,"",%progbits
+  17              	.Ldebug_info0:
+  18              		.section	.debug_line,"",%progbits
+  19              	.Ldebug_line0:
+  20 0000 99000000 		.text
+  20      02005300 
+  20      00000201 
+  20      FB0E0D00 
+  20      01010101 
+  21              	.Ltext0:
+  22              		.cfi_sections	.debug_frame
+  23              		.comm	ezi2cBuffer,4,4
+  24              		.comm	i2cBufferRead,4,4
+  25              		.comm	i2cBufferWrite,5,4
+  26              		.global	actionSelect
+  27              		.bss
+  28              		.type	actionSelect, %object
+  29              		.size	actionSelect, 1
+  30              	actionSelect:
+  31 0000 00       		.space	1
+  32              		.section	.text.main,"ax",%progbits
+  33              		.align	2
+  34              		.global	main
+  35              		.thumb
+  36              		.thumb_func
+  37              		.type	main, %function
+  38              	main:
+  39              	.LFB29:
+  40              		.file 1 ".\\main.c"
+   1:.\main.c      **** /* ========================================
+   2:.\main.c      ****  *
+   3:.\main.c      ****  * Copyright YOUR COMPANY, THE YEAR
+   4:.\main.c      ****  * All Rights Reserved
+   5:.\main.c      ****  * UNPUBLISHED, LICENSED SOFTWARE.
+   6:.\main.c      ****  *
+   7:.\main.c      ****  * CONFIDENTIAL AND PROPRIETARY INFORMATION
+   8:.\main.c      ****  * WHICH IS THE PROPERTY OF your company.
+   9:.\main.c      ****  *
+  10:.\main.c      ****  * ========================================
+  11:.\main.c      **** */
+  12:.\main.c      **** #include <device.h>
+  13:.\main.c      **** 
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 2
+
+
+  14:.\main.c      **** #define EZI2C_SLAVE_ADDR    (0x08u) /* Slave address of the EZI2C */
+  15:.\main.c      **** #define BUFFER_SIZE         (0x04u)
+  16:.\main.c      **** #define BUFFER_RW_AREA_SIZE (0x02u)
+  17:.\main.c      **** 
+  18:.\main.c      **** /* Denotes the offset inside the EZI2C buffer */
+  19:.\main.c      **** #define SLAVE_ADDR_SIZE         (0x01u)
+  20:.\main.c      **** 
+  21:.\main.c      **** /* EZI2C buffer */
+  22:.\main.c      **** uint8   ezi2cBuffer[BUFFER_SIZE];
+  23:.\main.c      **** 
+  24:.\main.c      **** /* I2C buffer with the data read from EZI2C */
+  25:.\main.c      **** uint8   i2cBufferRead[BUFFER_SIZE];
+  26:.\main.c      **** 
+  27:.\main.c      **** /* I2C buffer with the data to be written to EZI2C */
+  28:.\main.c      **** uint8   i2cBufferWrite[SLAVE_ADDR_SIZE + BUFFER_SIZE];
+  29:.\main.c      **** 
+  30:.\main.c      **** #define ACTION_SELECT_NONE      (0x00u)     /* Do nothing       */
+  31:.\main.c      **** #define ACTION_SELECT_WRITE     (0x01u)     /* Write to EZI2C   */
+  32:.\main.c      **** #define ACTION_SELECT_READ      (0x02u)     /* Read from EZI2C  */
+  33:.\main.c      **** 
+  34:.\main.c      **** /* Initialize action variable */
+  35:.\main.c      **** volatile uint8 actionSelect = ACTION_SELECT_NONE;
+  36:.\main.c      **** 
+  37:.\main.c      **** 
+  38:.\main.c      **** void main(){
+  41              		.loc 1 38 0
+  42              		.cfi_startproc
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 1, uses_anonymous_args = 0
+  45 0000 80B5     		push	{r7, lr}
+  46              	.LCFI0:
+  47              		.cfi_def_cfa_offset 8
+  48 0002 00AF     		add	r7, sp, #0
+  49              		.cfi_offset 14, -4
+  50              		.cfi_offset 7, -8
+  51              	.LCFI1:
+  52              		.cfi_def_cfa_register 7
+  39:.\main.c      ****     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
+  40:.\main.c      ****     Debounce_Clock_Start();
+  53              		.loc 1 40 0
+  54 0004 FFF7FEFF 		bl	Debounce_Clock_Start
+  41:.\main.c      ****     Debounce_Clock_Enable();
+  55              		.loc 1 41 0
+  56 0008 FFF7FEFF 		bl	Debounce_Clock_Start
+  42:.\main.c      ****     EZI2C_Start();
+  57              		.loc 1 42 0
+  58 000c FFF7FEFF 		bl	EZI2C_Start
+  43:.\main.c      ****     LCD_Start();
+  59              		.loc 1 43 0
+  60 0010 FFF7FEFF 		bl	LCD_Start
+  44:.\main.c      ****     
+  45:.\main.c      ****     /* Enable global interrupts. */
+  46:.\main.c      ****     CyGlobalIntEnable; 
+  61              		.loc 1 46 0
+  62              	@ 46 ".\main.c" 1
+  63 0014 62B6     		CPSIE   i
+  64              	@ 0 "" 2
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 3
+
+
+  47:.\main.c      ****     
+  48:.\main.c      ****     /* Initialize EZI2C buffer's read only data */
+  49:.\main.c      ****     ezi2cBuffer[BUFFER_RW_AREA_SIZE     ] = 0xFFu;
+  65              		.loc 1 49 0
+  66              		.thumb
+  67 0016 40F20003 		movw	r3, #:lower16:ezi2cBuffer
+  68 001a C0F20003 		movt	r3, #:upper16:ezi2cBuffer
+  69 001e 4FF0FF32 		mov	r2, #-1
+  70 0022 9A70     		strb	r2, [r3, #2]
+  50:.\main.c      ****     ezi2cBuffer[BUFFER_RW_AREA_SIZE + 1u] = 0xFFu;
+  71              		.loc 1 50 0
+  72 0024 40F20003 		movw	r3, #:lower16:ezi2cBuffer
+  73 0028 C0F20003 		movt	r3, #:upper16:ezi2cBuffer
+  74 002c 4FF0FF32 		mov	r2, #-1
+  75 0030 DA70     		strb	r2, [r3, #3]
+  51:.\main.c      ****     
+  52:.\main.c      ****     EZI2C_SetBuffer1(BUFFER_SIZE, BUFFER_RW_AREA_SIZE, (void *) ezi2cBuffer);
+  76              		.loc 1 52 0
+  77 0032 4FF00400 		mov	r0, #4
+  78 0036 4FF00201 		mov	r1, #2
+  79 003a 40F20002 		movw	r2, #:lower16:ezi2cBuffer
+  80 003e C0F20002 		movt	r2, #:upper16:ezi2cBuffer
+  81 0042 FFF7FEFF 		bl	EZI2C_SetBuffer1
+  82              	.L2:
+  53:.\main.c      ****     
+  54:.\main.c      ****     /* Start ISRs */
+  55:.\main.c      ****     //ISR_Write_StartEx(ISR_WriteSW1_Interrupt);
+  56:.\main.c      ****     //ISR_Read_StartEx(ISR_ReadSW2_Interrupt);
+  57:.\main.c      **** 
+  58:.\main.c      ****     for(;;){
+  59:.\main.c      ****         /* Place your application code here. */
+  60:.\main.c      ****         
+  61:.\main.c      ****         /*
+  62:.\main.c      ****         LCD_Position(1u,0u);
+  63:.\main.c      ****         LCD_PrintString("RD: ");
+  64:.\main.c      ****         int i = 0;
+  65:.\main.c      ****         for(i=0; i <4u; i++){
+  66:.\main.c      ****             LCD_PrintInt8(i2cBufferRead[i]);
+  67:.\main.c      ****             LCD_PrintString(" ");
+  68:.\main.c      ****         }
+  69:.\main.c      ****         */
+  70:.\main.c      ****     }
+  83              		.loc 1 70 0
+  84 0046 FEE7     		b	.L2
+  85              		.cfi_endproc
+  86              	.LFE29:
+  87              		.size	main, .-main
+  88              		.section	.text.ISR_WriteSW1_Interrupt,"ax",%progbits
+  89              		.align	2
+  90              		.global	ISR_WriteSW1_Interrupt
+  91              		.thumb
+  92              		.thumb_func
+  93              		.type	ISR_WriteSW1_Interrupt, %function
+  94              	ISR_WriteSW1_Interrupt:
+  95              	.LFB30:
+  71:.\main.c      **** }
+  72:.\main.c      **** 
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 4
+
+
+  73:.\main.c      **** 
+  74:.\main.c      **** 
+  75:.\main.c      **** 
+  76:.\main.c      **** 
+  77:.\main.c      **** /*******************************************************************************
+  78:.\main.c      **** * Function Name: ISR_WriteSW1_Interrupt
+  79:.\main.c      **** ********************************************************************************
+  80:.\main.c      **** * Summary:
+  81:.\main.c      **** *  The Interrupt Service Routine for SW1 event.
+  82:.\main.c      **** *
+  83:.\main.c      **** * Parameters:
+  84:.\main.c      **** *  None
+  85:.\main.c      **** *
+  86:.\main.c      **** * Return:
+  87:.\main.c      **** *  None
+  88:.\main.c      **** *
+  89:.\main.c      **** *******************************************************************************/
+  90:.\main.c      **** CY_ISR(ISR_WriteSW1_Interrupt)
+  91:.\main.c      **** {
+  96              		.loc 1 91 0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101              	.LCFI2:
+ 102              		.cfi_def_cfa_offset 8
+ 103 0002 00AF     		add	r7, sp, #0
+ 104              		.cfi_offset 14, -4
+ 105              		.cfi_offset 7, -8
+ 106              	.LCFI3:
+ 107              		.cfi_def_cfa_register 7
+  92:.\main.c      ****     /* Clear pin interrupt request bit */
+  93:.\main.c      ****     SW1_Write_ClearInterrupt();
+ 108              		.loc 1 93 0
+ 109 0004 FFF7FEFF 		bl	SW1_Write_ClearInterrupt
+  94:.\main.c      **** 
+  95:.\main.c      ****     /* Select read action */
+  96:.\main.c      ****     actionSelect = ACTION_SELECT_WRITE;
+ 110              		.loc 1 96 0
+ 111 0008 40F20003 		movw	r3, #:lower16:actionSelect
+ 112 000c C0F20003 		movt	r3, #:upper16:actionSelect
+ 113 0010 4FF00102 		mov	r2, #1
+ 114 0014 1A70     		strb	r2, [r3, #0]
+  97:.\main.c      **** }
+ 115              		.loc 1 97 0
+ 116 0016 80BD     		pop	{r7, pc}
+ 117              		.cfi_endproc
+ 118              	.LFE30:
+ 119              		.size	ISR_WriteSW1_Interrupt, .-ISR_WriteSW1_Interrupt
+ 120              		.section	.text.ISR_ReadSW2_Interrupt,"ax",%progbits
+ 121              		.align	2
+ 122              		.global	ISR_ReadSW2_Interrupt
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.type	ISR_ReadSW2_Interrupt, %function
+ 126              	ISR_ReadSW2_Interrupt:
+ 127              	.LFB31:
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 5
+
+
+  98:.\main.c      **** 
+  99:.\main.c      **** 
+ 100:.\main.c      **** /*******************************************************************************
+ 101:.\main.c      **** * Function Name: ISR_ReadSW2_Interrupt
+ 102:.\main.c      **** ********************************************************************************
+ 103:.\main.c      **** * Summary:
+ 104:.\main.c      **** *  The Interrupt Service Routine for SW2 event.
+ 105:.\main.c      **** *
+ 106:.\main.c      **** * Parameters:
+ 107:.\main.c      **** *  None
+ 108:.\main.c      **** *
+ 109:.\main.c      **** * Return:
+ 110:.\main.c      **** *  None
+ 111:.\main.c      **** *
+ 112:.\main.c      **** *******************************************************************************/
+ 113:.\main.c      **** CY_ISR(ISR_ReadSW2_Interrupt)
+ 114:.\main.c      **** {
+ 128              		.loc 1 114 0
+ 129              		.cfi_startproc
+ 130              		@ args = 0, pretend = 0, frame = 0
+ 131              		@ frame_needed = 1, uses_anonymous_args = 0
+ 132 0000 80B5     		push	{r7, lr}
+ 133              	.LCFI4:
+ 134              		.cfi_def_cfa_offset 8
+ 135 0002 00AF     		add	r7, sp, #0
+ 136              		.cfi_offset 14, -4
+ 137              		.cfi_offset 7, -8
+ 138              	.LCFI5:
+ 139              		.cfi_def_cfa_register 7
+ 115:.\main.c      ****     /* Clear pin interrupt request bit */
+ 116:.\main.c      ****     SW2_Read_ClearInterrupt();
+ 140              		.loc 1 116 0
+ 141 0004 FFF7FEFF 		bl	SW2_Read_ClearInterrupt
+ 117:.\main.c      **** 
+ 118:.\main.c      ****     /* Select read action */
+ 119:.\main.c      ****     actionSelect = ACTION_SELECT_READ;
+ 142              		.loc 1 119 0
+ 143 0008 40F20003 		movw	r3, #:lower16:actionSelect
+ 144 000c C0F20003 		movt	r3, #:upper16:actionSelect
+ 145 0010 4FF00202 		mov	r2, #2
+ 146 0014 1A70     		strb	r2, [r3, #0]
+ 120:.\main.c      **** }
+ 147              		.loc 1 120 0
+ 148 0016 80BD     		pop	{r7, pc}
+ 149              		.cfi_endproc
+ 150              	.LFE31:
+ 151              		.size	ISR_ReadSW2_Interrupt, .-ISR_ReadSW2_Interrupt
+ 152              		.text
+ 153              	.Letext0:
+ 154              		.section	.debug_loc,"",%progbits
+ 155              	.Ldebug_loc0:
+ 156              	.LLST0:
+ 157 0000 00000000 		.4byte	.LFB29
+ 158 0004 02000000 		.4byte	.LCFI0
+ 159 0008 0100     		.2byte	0x1
+ 160 000a 5D       		.byte	0x5d
+ 161 000b 02000000 		.4byte	.LCFI0
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 6
+
+
+ 162 000f 04000000 		.4byte	.LCFI1
+ 163 0013 0200     		.2byte	0x2
+ 164 0015 7D       		.byte	0x7d
+ 165 0016 08       		.sleb128 8
+ 166 0017 04000000 		.4byte	.LCFI1
+ 167 001b 48000000 		.4byte	.LFE29
+ 168 001f 0200     		.2byte	0x2
+ 169 0021 77       		.byte	0x77
+ 170 0022 08       		.sleb128 8
+ 171 0023 00000000 		.4byte	0x0
+ 172 0027 00000000 		.4byte	0x0
+ 173              	.LLST1:
+ 174 002b 00000000 		.4byte	.LFB30
+ 175 002f 02000000 		.4byte	.LCFI2
+ 176 0033 0100     		.2byte	0x1
+ 177 0035 5D       		.byte	0x5d
+ 178 0036 02000000 		.4byte	.LCFI2
+ 179 003a 04000000 		.4byte	.LCFI3
+ 180 003e 0200     		.2byte	0x2
+ 181 0040 7D       		.byte	0x7d
+ 182 0041 08       		.sleb128 8
+ 183 0042 04000000 		.4byte	.LCFI3
+ 184 0046 18000000 		.4byte	.LFE30
+ 185 004a 0200     		.2byte	0x2
+ 186 004c 77       		.byte	0x77
+ 187 004d 08       		.sleb128 8
+ 188 004e 00000000 		.4byte	0x0
+ 189 0052 00000000 		.4byte	0x0
+ 190              	.LLST2:
+ 191 0056 00000000 		.4byte	.LFB31
+ 192 005a 02000000 		.4byte	.LCFI4
+ 193 005e 0100     		.2byte	0x1
+ 194 0060 5D       		.byte	0x5d
+ 195 0061 02000000 		.4byte	.LCFI4
+ 196 0065 04000000 		.4byte	.LCFI5
+ 197 0069 0200     		.2byte	0x2
+ 198 006b 7D       		.byte	0x7d
+ 199 006c 08       		.sleb128 8
+ 200 006d 04000000 		.4byte	.LCFI5
+ 201 0071 18000000 		.4byte	.LFE31
+ 202 0075 0200     		.2byte	0x2
+ 203 0077 77       		.byte	0x77
+ 204 0078 08       		.sleb128 8
+ 205 0079 00000000 		.4byte	0x0
+ 206 007d 00000000 		.4byte	0x0
+ 207              		.file 2 "./Generated_Source/PSoC5/core_cm3.h"
+ 208              		.file 3 "./Generated_Source/PSoC5/cytypes.h"
+ 209              		.section	.debug_info
+ 210 0000 3F010000 		.4byte	0x13f
+ 211 0004 0200     		.2byte	0x2
+ 212 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 213 000a 04       		.byte	0x4
+ 214 000b 01       		.uleb128 0x1
+ 215 000c C1000000 		.4byte	.LASF17
+ 216 0010 01       		.byte	0x1
+ 217 0011 43010000 		.4byte	.LASF18
+ 218 0015 7F000000 		.4byte	.LASF19
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 7
+
+
+ 219 0019 00000000 		.4byte	0x0
+ 220 001d 00000000 		.4byte	0x0
+ 221 0021 00000000 		.4byte	.Ldebug_ranges0+0x0
+ 222 0025 00000000 		.4byte	.Ldebug_line0
+ 223 0029 02       		.uleb128 0x2
+ 224 002a 01       		.byte	0x1
+ 225 002b 06       		.byte	0x6
+ 226 002c 2A010000 		.4byte	.LASF0
+ 227 0030 02       		.uleb128 0x2
+ 228 0031 01       		.byte	0x1
+ 229 0032 08       		.byte	0x8
+ 230 0033 1B000000 		.4byte	.LASF1
+ 231 0037 02       		.uleb128 0x2
+ 232 0038 02       		.byte	0x2
+ 233 0039 05       		.byte	0x5
+ 234 003a 04010000 		.4byte	.LASF2
+ 235 003e 02       		.uleb128 0x2
+ 236 003f 02       		.byte	0x2
+ 237 0040 07       		.byte	0x7
+ 238 0041 17010000 		.4byte	.LASF3
+ 239 0045 02       		.uleb128 0x2
+ 240 0046 04       		.byte	0x4
+ 241 0047 05       		.byte	0x5
+ 242 0048 0E010000 		.4byte	.LASF4
+ 243 004c 02       		.uleb128 0x2
+ 244 004d 04       		.byte	0x4
+ 245 004e 07       		.byte	0x7
+ 246 004f 40000000 		.4byte	.LASF5
+ 247 0053 02       		.uleb128 0x2
+ 248 0054 08       		.byte	0x8
+ 249 0055 05       		.byte	0x5
+ 250 0056 00000000 		.4byte	.LASF6
+ 251 005a 02       		.uleb128 0x2
+ 252 005b 08       		.byte	0x8
+ 253 005c 07       		.byte	0x7
+ 254 005d 52000000 		.4byte	.LASF7
+ 255 0061 03       		.uleb128 0x3
+ 256 0062 04       		.byte	0x4
+ 257 0063 05       		.byte	0x5
+ 258 0064 696E7400 		.ascii	"int\000"
+ 259 0068 02       		.uleb128 0x2
+ 260 0069 04       		.byte	0x4
+ 261 006a 07       		.byte	0x7
+ 262 006b 0E000000 		.4byte	.LASF8
+ 263 006f 02       		.uleb128 0x2
+ 264 0070 01       		.byte	0x1
+ 265 0071 08       		.byte	0x8
+ 266 0072 DB000000 		.4byte	.LASF9
+ 267 0076 04       		.uleb128 0x4
+ 268 0077 3A000000 		.4byte	.LASF20
+ 269 007b 03       		.byte	0x3
+ 270 007c 60       		.byte	0x60
+ 271 007d 30000000 		.4byte	0x30
+ 272 0081 05       		.uleb128 0x5
+ 273 0082 76000000 		.4byte	0x76
+ 274 0086 06       		.uleb128 0x6
+ 275 0087 04       		.byte	0x4
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 8
+
+
+ 276 0088 07       		.byte	0x7
+ 277 0089 07       		.uleb128 0x7
+ 278 008a 76000000 		.4byte	0x76
+ 279 008e 99000000 		.4byte	0x99
+ 280 0092 08       		.uleb128 0x8
+ 281 0093 86000000 		.4byte	0x86
+ 282 0097 04       		.byte	0x4
+ 283 0098 00       		.byte	0x0
+ 284 0099 07       		.uleb128 0x7
+ 285 009a 76000000 		.4byte	0x76
+ 286 009e A9000000 		.4byte	0xa9
+ 287 00a2 08       		.uleb128 0x8
+ 288 00a3 86000000 		.4byte	0x86
+ 289 00a7 03       		.byte	0x3
+ 290 00a8 00       		.byte	0x0
+ 291 00a9 09       		.uleb128 0x9
+ 292 00aa 01       		.byte	0x1
+ 293 00ab 29000000 		.4byte	.LASF21
+ 294 00af 01       		.byte	0x1
+ 295 00b0 26       		.byte	0x26
+ 296 00b1 00000000 		.4byte	.LFB29
+ 297 00b5 48000000 		.4byte	.LFE29
+ 298 00b9 00000000 		.4byte	.LLST0
+ 299 00bd 0A       		.uleb128 0xa
+ 300 00be 01       		.byte	0x1
+ 301 00bf ED000000 		.4byte	.LASF10
+ 302 00c3 01       		.byte	0x1
+ 303 00c4 5A       		.byte	0x5a
+ 304 00c5 01       		.byte	0x1
+ 305 00c6 00000000 		.4byte	.LFB30
+ 306 00ca 18000000 		.4byte	.LFE30
+ 307 00ce 2B000000 		.4byte	.LLST1
+ 308 00d2 0A       		.uleb128 0xa
+ 309 00d3 01       		.byte	0x1
+ 310 00d4 69000000 		.4byte	.LASF11
+ 311 00d8 01       		.byte	0x1
+ 312 00d9 71       		.byte	0x71
+ 313 00da 01       		.byte	0x1
+ 314 00db 00000000 		.4byte	.LFB31
+ 315 00df 18000000 		.4byte	.LFE31
+ 316 00e3 56000000 		.4byte	.LLST2
+ 317 00e7 0B       		.uleb128 0xb
+ 318 00e8 E0000000 		.4byte	.LASF12
+ 319 00ec 02       		.byte	0x2
+ 320 00ed CE06     		.2byte	0x6ce
+ 321 00ef F5000000 		.4byte	0xf5
+ 322 00f3 01       		.byte	0x1
+ 323 00f4 01       		.byte	0x1
+ 324 00f5 05       		.uleb128 0x5
+ 325 00f6 61000000 		.4byte	0x61
+ 326 00fa 0C       		.uleb128 0xc
+ 327 00fb 2E000000 		.4byte	.LASF13
+ 328 00ff 01       		.byte	0x1
+ 329 0100 16       		.byte	0x16
+ 330 0101 99000000 		.4byte	0x99
+ 331 0105 01       		.byte	0x1
+ 332 0106 05       		.byte	0x5
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 9
+
+
+ 333 0107 03       		.byte	0x3
+ 334 0108 00000000 		.4byte	ezi2cBuffer
+ 335 010c 0C       		.uleb128 0xc
+ 336 010d CD000000 		.4byte	.LASF14
+ 337 0111 01       		.byte	0x1
+ 338 0112 19       		.byte	0x19
+ 339 0113 99000000 		.4byte	0x99
+ 340 0117 01       		.byte	0x1
+ 341 0118 05       		.byte	0x5
+ 342 0119 03       		.byte	0x3
+ 343 011a 00000000 		.4byte	i2cBufferRead
+ 344 011e 0C       		.uleb128 0xc
+ 345 011f 4C010000 		.4byte	.LASF15
+ 346 0123 01       		.byte	0x1
+ 347 0124 1C       		.byte	0x1c
+ 348 0125 89000000 		.4byte	0x89
+ 349 0129 01       		.byte	0x1
+ 350 012a 05       		.byte	0x5
+ 351 012b 03       		.byte	0x3
+ 352 012c 00000000 		.4byte	i2cBufferWrite
+ 353 0130 0C       		.uleb128 0xc
+ 354 0131 36010000 		.4byte	.LASF16
+ 355 0135 01       		.byte	0x1
+ 356 0136 23       		.byte	0x23
+ 357 0137 81000000 		.4byte	0x81
+ 358 013b 01       		.byte	0x1
+ 359 013c 05       		.byte	0x5
+ 360 013d 03       		.byte	0x3
+ 361 013e 00000000 		.4byte	actionSelect
+ 362 0142 00       		.byte	0x0
+ 363              		.section	.debug_abbrev
+ 364 0000 01       		.uleb128 0x1
+ 365 0001 11       		.uleb128 0x11
+ 366 0002 01       		.byte	0x1
+ 367 0003 25       		.uleb128 0x25
+ 368 0004 0E       		.uleb128 0xe
+ 369 0005 13       		.uleb128 0x13
+ 370 0006 0B       		.uleb128 0xb
+ 371 0007 03       		.uleb128 0x3
+ 372 0008 0E       		.uleb128 0xe
+ 373 0009 1B       		.uleb128 0x1b
+ 374 000a 0E       		.uleb128 0xe
+ 375 000b 11       		.uleb128 0x11
+ 376 000c 01       		.uleb128 0x1
+ 377 000d 52       		.uleb128 0x52
+ 378 000e 01       		.uleb128 0x1
+ 379 000f 55       		.uleb128 0x55
+ 380 0010 06       		.uleb128 0x6
+ 381 0011 10       		.uleb128 0x10
+ 382 0012 06       		.uleb128 0x6
+ 383 0013 00       		.byte	0x0
+ 384 0014 00       		.byte	0x0
+ 385 0015 02       		.uleb128 0x2
+ 386 0016 24       		.uleb128 0x24
+ 387 0017 00       		.byte	0x0
+ 388 0018 0B       		.uleb128 0xb
+ 389 0019 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 10
+
+
+ 390 001a 3E       		.uleb128 0x3e
+ 391 001b 0B       		.uleb128 0xb
+ 392 001c 03       		.uleb128 0x3
+ 393 001d 0E       		.uleb128 0xe
+ 394 001e 00       		.byte	0x0
+ 395 001f 00       		.byte	0x0
+ 396 0020 03       		.uleb128 0x3
+ 397 0021 24       		.uleb128 0x24
+ 398 0022 00       		.byte	0x0
+ 399 0023 0B       		.uleb128 0xb
+ 400 0024 0B       		.uleb128 0xb
+ 401 0025 3E       		.uleb128 0x3e
+ 402 0026 0B       		.uleb128 0xb
+ 403 0027 03       		.uleb128 0x3
+ 404 0028 08       		.uleb128 0x8
+ 405 0029 00       		.byte	0x0
+ 406 002a 00       		.byte	0x0
+ 407 002b 04       		.uleb128 0x4
+ 408 002c 16       		.uleb128 0x16
+ 409 002d 00       		.byte	0x0
+ 410 002e 03       		.uleb128 0x3
+ 411 002f 0E       		.uleb128 0xe
+ 412 0030 3A       		.uleb128 0x3a
+ 413 0031 0B       		.uleb128 0xb
+ 414 0032 3B       		.uleb128 0x3b
+ 415 0033 0B       		.uleb128 0xb
+ 416 0034 49       		.uleb128 0x49
+ 417 0035 13       		.uleb128 0x13
+ 418 0036 00       		.byte	0x0
+ 419 0037 00       		.byte	0x0
+ 420 0038 05       		.uleb128 0x5
+ 421 0039 35       		.uleb128 0x35
+ 422 003a 00       		.byte	0x0
+ 423 003b 49       		.uleb128 0x49
+ 424 003c 13       		.uleb128 0x13
+ 425 003d 00       		.byte	0x0
+ 426 003e 00       		.byte	0x0
+ 427 003f 06       		.uleb128 0x6
+ 428 0040 24       		.uleb128 0x24
+ 429 0041 00       		.byte	0x0
+ 430 0042 0B       		.uleb128 0xb
+ 431 0043 0B       		.uleb128 0xb
+ 432 0044 3E       		.uleb128 0x3e
+ 433 0045 0B       		.uleb128 0xb
+ 434 0046 00       		.byte	0x0
+ 435 0047 00       		.byte	0x0
+ 436 0048 07       		.uleb128 0x7
+ 437 0049 01       		.uleb128 0x1
+ 438 004a 01       		.byte	0x1
+ 439 004b 49       		.uleb128 0x49
+ 440 004c 13       		.uleb128 0x13
+ 441 004d 01       		.uleb128 0x1
+ 442 004e 13       		.uleb128 0x13
+ 443 004f 00       		.byte	0x0
+ 444 0050 00       		.byte	0x0
+ 445 0051 08       		.uleb128 0x8
+ 446 0052 21       		.uleb128 0x21
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 11
+
+
+ 447 0053 00       		.byte	0x0
+ 448 0054 49       		.uleb128 0x49
+ 449 0055 13       		.uleb128 0x13
+ 450 0056 2F       		.uleb128 0x2f
+ 451 0057 0B       		.uleb128 0xb
+ 452 0058 00       		.byte	0x0
+ 453 0059 00       		.byte	0x0
+ 454 005a 09       		.uleb128 0x9
+ 455 005b 2E       		.uleb128 0x2e
+ 456 005c 00       		.byte	0x0
+ 457 005d 3F       		.uleb128 0x3f
+ 458 005e 0C       		.uleb128 0xc
+ 459 005f 03       		.uleb128 0x3
+ 460 0060 0E       		.uleb128 0xe
+ 461 0061 3A       		.uleb128 0x3a
+ 462 0062 0B       		.uleb128 0xb
+ 463 0063 3B       		.uleb128 0x3b
+ 464 0064 0B       		.uleb128 0xb
+ 465 0065 11       		.uleb128 0x11
+ 466 0066 01       		.uleb128 0x1
+ 467 0067 12       		.uleb128 0x12
+ 468 0068 01       		.uleb128 0x1
+ 469 0069 40       		.uleb128 0x40
+ 470 006a 06       		.uleb128 0x6
+ 471 006b 00       		.byte	0x0
+ 472 006c 00       		.byte	0x0
+ 473 006d 0A       		.uleb128 0xa
+ 474 006e 2E       		.uleb128 0x2e
+ 475 006f 00       		.byte	0x0
+ 476 0070 3F       		.uleb128 0x3f
+ 477 0071 0C       		.uleb128 0xc
+ 478 0072 03       		.uleb128 0x3
+ 479 0073 0E       		.uleb128 0xe
+ 480 0074 3A       		.uleb128 0x3a
+ 481 0075 0B       		.uleb128 0xb
+ 482 0076 3B       		.uleb128 0x3b
+ 483 0077 0B       		.uleb128 0xb
+ 484 0078 27       		.uleb128 0x27
+ 485 0079 0C       		.uleb128 0xc
+ 486 007a 11       		.uleb128 0x11
+ 487 007b 01       		.uleb128 0x1
+ 488 007c 12       		.uleb128 0x12
+ 489 007d 01       		.uleb128 0x1
+ 490 007e 40       		.uleb128 0x40
+ 491 007f 06       		.uleb128 0x6
+ 492 0080 00       		.byte	0x0
+ 493 0081 00       		.byte	0x0
+ 494 0082 0B       		.uleb128 0xb
+ 495 0083 34       		.uleb128 0x34
+ 496 0084 00       		.byte	0x0
+ 497 0085 03       		.uleb128 0x3
+ 498 0086 0E       		.uleb128 0xe
+ 499 0087 3A       		.uleb128 0x3a
+ 500 0088 0B       		.uleb128 0xb
+ 501 0089 3B       		.uleb128 0x3b
+ 502 008a 05       		.uleb128 0x5
+ 503 008b 49       		.uleb128 0x49
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 12
+
+
+ 504 008c 13       		.uleb128 0x13
+ 505 008d 3F       		.uleb128 0x3f
+ 506 008e 0C       		.uleb128 0xc
+ 507 008f 3C       		.uleb128 0x3c
+ 508 0090 0C       		.uleb128 0xc
+ 509 0091 00       		.byte	0x0
+ 510 0092 00       		.byte	0x0
+ 511 0093 0C       		.uleb128 0xc
+ 512 0094 34       		.uleb128 0x34
+ 513 0095 00       		.byte	0x0
+ 514 0096 03       		.uleb128 0x3
+ 515 0097 0E       		.uleb128 0xe
+ 516 0098 3A       		.uleb128 0x3a
+ 517 0099 0B       		.uleb128 0xb
+ 518 009a 3B       		.uleb128 0x3b
+ 519 009b 0B       		.uleb128 0xb
+ 520 009c 49       		.uleb128 0x49
+ 521 009d 13       		.uleb128 0x13
+ 522 009e 3F       		.uleb128 0x3f
+ 523 009f 0C       		.uleb128 0xc
+ 524 00a0 02       		.uleb128 0x2
+ 525 00a1 0A       		.uleb128 0xa
+ 526 00a2 00       		.byte	0x0
+ 527 00a3 00       		.byte	0x0
+ 528 00a4 00       		.byte	0x0
+ 529              		.section	.debug_pubnames,"",%progbits
+ 530 0000 92000000 		.4byte	0x92
+ 531 0004 0200     		.2byte	0x2
+ 532 0006 00000000 		.4byte	.Ldebug_info0
+ 533 000a 43010000 		.4byte	0x143
+ 534 000e A9000000 		.4byte	0xa9
+ 535 0012 6D61696E 		.ascii	"main\000"
+ 535      00
+ 536 0017 BD000000 		.4byte	0xbd
+ 537 001b 4953525F 		.ascii	"ISR_WriteSW1_Interrupt\000"
+ 537      57726974 
+ 537      65535731 
+ 537      5F496E74 
+ 537      65727275 
+ 538 0032 D2000000 		.4byte	0xd2
+ 539 0036 4953525F 		.ascii	"ISR_ReadSW2_Interrupt\000"
+ 539      52656164 
+ 539      5357325F 
+ 539      496E7465 
+ 539      72727570 
+ 540 004c FA000000 		.4byte	0xfa
+ 541 0050 657A6932 		.ascii	"ezi2cBuffer\000"
+ 541      63427566 
+ 541      66657200 
+ 542 005c 0C010000 		.4byte	0x10c
+ 543 0060 69326342 		.ascii	"i2cBufferRead\000"
+ 543      75666665 
+ 543      72526561 
+ 543      6400
+ 544 006e 1E010000 		.4byte	0x11e
+ 545 0072 69326342 		.ascii	"i2cBufferWrite\000"
+ 545      75666665 
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 13
+
+
+ 545      72577269 
+ 545      746500
+ 546 0081 30010000 		.4byte	0x130
+ 547 0085 61637469 		.ascii	"actionSelect\000"
+ 547      6F6E5365 
+ 547      6C656374 
+ 547      00
+ 548 0092 00000000 		.4byte	0x0
+ 549              		.section	.debug_aranges,"",%progbits
+ 550 0000 2C000000 		.4byte	0x2c
+ 551 0004 0200     		.2byte	0x2
+ 552 0006 00000000 		.4byte	.Ldebug_info0
+ 553 000a 04       		.byte	0x4
+ 554 000b 00       		.byte	0x0
+ 555 000c 0000     		.2byte	0x0
+ 556 000e 0000     		.2byte	0x0
+ 557 0010 00000000 		.4byte	.LFB29
+ 558 0014 48000000 		.4byte	.LFE29-.LFB29
+ 559 0018 00000000 		.4byte	.LFB30
+ 560 001c 18000000 		.4byte	.LFE30-.LFB30
+ 561 0020 00000000 		.4byte	.LFB31
+ 562 0024 18000000 		.4byte	.LFE31-.LFB31
+ 563 0028 00000000 		.4byte	0x0
+ 564 002c 00000000 		.4byte	0x0
+ 565              		.section	.debug_ranges,"",%progbits
+ 566              	.Ldebug_ranges0:
+ 567 0000 00000000 		.4byte	.Ltext0
+ 568 0004 00000000 		.4byte	.Letext0
+ 569 0008 00000000 		.4byte	.LFB29
+ 570 000c 48000000 		.4byte	.LFE29
+ 571 0010 00000000 		.4byte	.LFB30
+ 572 0014 18000000 		.4byte	.LFE30
+ 573 0018 00000000 		.4byte	.LFB31
+ 574 001c 18000000 		.4byte	.LFE31
+ 575 0020 00000000 		.4byte	0x0
+ 576 0024 00000000 		.4byte	0x0
+ 577              		.section	.debug_str,"MS",%progbits,1
+ 578              	.LASF6:
+ 579 0000 6C6F6E67 		.ascii	"long long int\000"
+ 579      206C6F6E 
+ 579      6720696E 
+ 579      7400
+ 580              	.LASF8:
+ 581 000e 756E7369 		.ascii	"unsigned int\000"
+ 581      676E6564 
+ 581      20696E74 
+ 581      00
+ 582              	.LASF1:
+ 583 001b 756E7369 		.ascii	"unsigned char\000"
+ 583      676E6564 
+ 583      20636861 
+ 583      7200
+ 584              	.LASF21:
+ 585 0029 6D61696E 		.ascii	"main\000"
+ 585      00
+ 586              	.LASF13:
+ 587 002e 657A6932 		.ascii	"ezi2cBuffer\000"
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 14
+
+
+ 587      63427566 
+ 587      66657200 
+ 588              	.LASF20:
+ 589 003a 75696E74 		.ascii	"uint8\000"
+ 589      3800
+ 590              	.LASF5:
+ 591 0040 6C6F6E67 		.ascii	"long unsigned int\000"
+ 591      20756E73 
+ 591      69676E65 
+ 591      6420696E 
+ 591      7400
+ 592              	.LASF7:
+ 593 0052 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 593      206C6F6E 
+ 593      6720756E 
+ 593      7369676E 
+ 593      65642069 
+ 594              	.LASF11:
+ 595 0069 4953525F 		.ascii	"ISR_ReadSW2_Interrupt\000"
+ 595      52656164 
+ 595      5357325F 
+ 595      496E7465 
+ 595      72727570 
+ 596              	.LASF19:
+ 597 007f 433A5C55 		.ascii	"C:\\Users\\Heiwa\\Desktop\\PSOC_S Atmel_M\\PSoC Sla"
+ 597      73657273 
+ 597      5C486569 
+ 597      77615C44 
+ 597      65736B74 
+ 598 00ad 76655C50 		.ascii	"ve\\PSoC Slave.cydsn\000"
+ 598      536F4320 
+ 598      536C6176 
+ 598      652E6379 
+ 598      64736E00 
+ 599              	.LASF17:
+ 600 00c1 474E5520 		.ascii	"GNU C 4.4.1\000"
+ 600      4320342E 
+ 600      342E3100 
+ 601              	.LASF14:
+ 602 00cd 69326342 		.ascii	"i2cBufferRead\000"
+ 602      75666665 
+ 602      72526561 
+ 602      6400
+ 603              	.LASF9:
+ 604 00db 63686172 		.ascii	"char\000"
+ 604      00
+ 605              	.LASF12:
+ 606 00e0 49544D5F 		.ascii	"ITM_RxBuffer\000"
+ 606      52784275 
+ 606      66666572 
+ 606      00
+ 607              	.LASF10:
+ 608 00ed 4953525F 		.ascii	"ISR_WriteSW1_Interrupt\000"
+ 608      57726974 
+ 608      65535731 
+ 608      5F496E74 
+ 608      65727275 
+ARM GAS  C:\Users\Heiwa\AppData\Local\Temp\ccRKcT3r.s 			page 15
+
+
+ 609              	.LASF2:
+ 610 0104 73686F72 		.ascii	"short int\000"
+ 610      7420696E 
+ 610      7400
+ 611              	.LASF4:
+ 612 010e 6C6F6E67 		.ascii	"long int\000"
+ 612      20696E74 
+ 612      00
+ 613              	.LASF3:
+ 614 0117 73686F72 		.ascii	"short unsigned int\000"
+ 614      7420756E 
+ 614      7369676E 
+ 614      65642069 
+ 614      6E7400
+ 615              	.LASF0:
+ 616 012a 7369676E 		.ascii	"signed char\000"
+ 616      65642063 
+ 616      68617200 
+ 617              	.LASF16:
+ 618 0136 61637469 		.ascii	"actionSelect\000"
+ 618      6F6E5365 
+ 618      6C656374 
+ 618      00
+ 619              	.LASF18:
+ 620 0143 2E5C6D61 		.ascii	".\\main.c\000"
+ 620      696E2E63 
+ 620      00
+ 621              	.LASF15:
+ 622 014c 69326342 		.ascii	"i2cBufferWrite\000"
+ 622      75666665 
+ 622      72577269 
+ 622      746500
+ 623              		.ident	"GCC: (Sourcery G++ Lite 2010q1-188) 4.4.1"
